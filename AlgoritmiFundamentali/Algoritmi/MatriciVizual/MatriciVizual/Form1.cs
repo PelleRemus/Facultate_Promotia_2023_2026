@@ -52,6 +52,13 @@ namespace MatriciVizual
             }
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < matrix.GetLength(0); i++)
+                for (int j = 0; j < matrix.GetLength(1); j++)
+                    matrix[i, j].Parent = null;
+        }
+
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < matrix.GetLength(0); i++)
@@ -92,6 +99,153 @@ namespace MatriciVizual
                 if (i < n - 1)
                     textBox1.Text += Environment.NewLine;
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            int n = 9;
+            int[,] matrix = new int[n, n];
+
+            /*for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++)
+                {
+                    if (i < n / 2 && j < n / 2)
+                        matrix[i, j] = 1;
+                    if (i < n / 2 && j > n / 2)
+                        matrix[i, j] = 2;
+                    if (i > n / 2 && j < n / 2)
+                        matrix[i, j] = 3;
+                    if (i > n / 2 && j > n / 2)
+                        matrix[i, j] = 4;
+                }*/
+
+            // Mai eficient.
+            for (int i = 0; i < n / 2; i++)
+                for (int j = 0; j < n / 2; j++)
+                {
+                    matrix[i, j] = 1;
+                    matrix[i, j + n / 2 + 1] = 2;
+                    matrix[i + n / 2 + 1, j] = 3;
+                    matrix[i + n / 2 + 1, j + n / 2 + 1] = 4;
+                }
+
+            AddMatrixToTextBox(matrix, n, n);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            int n = 15;
+            int[,] matrix = new int[n, n];
+
+            // Cele doua diagonale.
+            /*for (int i = 0; i < n; i++)
+            {
+                matrix[i, i] = 1;
+                matrix[i, n - i - 1] = 1;
+            }*/
+
+            // Elementele de deasupra sau de dedesubtul diagonalelor.
+            /*for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++)
+                {
+                    //if (i < j)
+                    //    matrix[i, j] = 1;
+                    //else if (i > j)
+                    //    matrix[i, j] = 5;
+                    if (i < n - j - 1)
+                        matrix[i, j] = 1;
+                    else if (i > n - j - 1)
+                        matrix[i, j] = 5;
+                }*/
+
+            /*for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++)
+                {
+                    if (i < j && i + j < n - 1)
+                        matrix[i, j] = 1;
+                    if (i < j && i + j > n - 1)
+                        matrix[i, j] = 2;
+                    if (i > j && i + j < n - 1)
+                        matrix[i, j] = 3;
+                    if (i > j && i + j > n - 1)
+                        matrix[i, j] = 4;
+                }*/
+
+            // Mai eficient.
+            for (int i = 0; i < n / 2; i++)
+                for (int j = i + 1; j < n - i - 1; j++)
+                {
+                    matrix[i, j] = 1;
+                    matrix[j, n - i - 1] = 2;
+                    matrix[n - i - 1, j] = 3;
+                    matrix[j, i] = 4;
+                }
+
+            AddMatrixToTextBox(matrix, n, n);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            int n = 9;
+            int[,] matrix = new int[n, n];
+
+            // Parcurgerea chenarului exterior.
+            /*for (int j = 0; j < n - 1; j++)
+                matrix[0, j] = 1;
+            for (int i = 0; i < n - 1; i++)
+                matrix[i, n - 1] = 2;
+            for (int j = n - 1; j > 0; j--)
+                matrix[n - 1, j] = 3;
+            for (int i = n - 1; i > 0; i--)
+                matrix[i, 0] = 4;*/
+
+            // Parcurgerea in spirala.
+            int count = 1;
+            for (int k = 0; k < (n + 1) / 2; k++)
+            {
+                for (int j = k; j < n - k - 1; j++)
+                    matrix[k, j] = count;
+                count++;
+                for (int i = k; i < n - k - 1; i++)
+                    matrix[i, n - k - 1] = count;
+                count++;
+                for (int j = n - k - 1; j > k; j--)
+                    matrix[n - k - 1, j] = count;
+                count++;
+                for (int i = n - k - 1; i > k; i--)
+                    matrix[i, k] = count;
+                count++;
+            }
+
+            AddMatrixToTextBox(matrix, n, n);
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            int n = 10;
+            int[] array = { 1, 0, 1, 3, 1, 2, 5, 3, 2, 5 };
+            int[,] matrix = new int[n, n];
+
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++)
+                    if (i < array[j])
+                        matrix[n - i - 1, j] = 1;
+
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++)
+                {
+                    int left = j, right = j;
+
+                    while (matrix[i, left] == 0 && left > 0)
+                        left--;
+                    while (matrix[i, right] == 0 && right < n - 1)
+                        right++;
+
+                    if (matrix[i, j] == 0 && matrix[i, left] != 0 && matrix[i, right] != 0)
+                        matrix[i, j] = 2;
+                }
+
+            AddMatrixToTextBox(matrix, n, n);
         }
     }
 }
