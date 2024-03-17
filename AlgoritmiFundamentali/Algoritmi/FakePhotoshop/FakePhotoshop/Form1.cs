@@ -85,8 +85,8 @@ namespace FakePhotoshop
                     for (int k = i - 3; k <= i + 3; k++)
                         for (int l = j - 3; l <= j + 3; l++)
                         {
-                            if (k > 0 && k < image.Width && l > 0 && l < image.Height)
-                                colors.Add(image.GetPixel(i, j));
+                            if (k >= 0 && k < image.Width && l >= 0 && l < image.Height)
+                                colors.Add(image.GetPixel(k, l));
                         }
 
                     Color dest = MediaAritmetica(colors);
