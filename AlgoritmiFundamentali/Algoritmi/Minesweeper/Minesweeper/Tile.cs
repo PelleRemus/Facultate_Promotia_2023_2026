@@ -49,6 +49,7 @@ namespace Minesweeper
             IsUncovered = false;
             IsFlagged = false;
             Button.BackColor = Color.DarkGray;
+            Button.ForeColor = Color.Black;
             Button.Text = string.Empty;
         }
 

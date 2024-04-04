@@ -3,6 +3,9 @@ using System.Windows.Forms;
 
 namespace Minesweeper
 {
+    // Clasa Form1 are ca scop comunicarea cu UI-ul
+    // Aici ar trebui sa avem numai metode pentru diferite evenimente ale acestuia,
+    // Cum ar fi Form1_Load sau button1_Click
     public partial class Form1 : Form
     {
         // Modul prin care vom accesa obiectul de Form1 creat din exteriorul clasei
