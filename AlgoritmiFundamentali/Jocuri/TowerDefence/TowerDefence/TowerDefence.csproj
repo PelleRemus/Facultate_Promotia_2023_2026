@@ -46,6 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bloon.cs" />
+    <Compile Include="BloonTypes\BlackBloon.cs" />
+    <Compile Include="BloonTypes\BlueBloon.cs" />
+    <Compile Include="BloonTypes\GreenBloon.cs" />
+    <Compile Include="BloonTypes\RedBloon.cs" />
+    <Compile Include="BloonTypes\WhiteBloon.cs" />
+    <Compile Include="BloonTypes\YellowBloon.cs" />
+    <Compile Include="Engine.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
