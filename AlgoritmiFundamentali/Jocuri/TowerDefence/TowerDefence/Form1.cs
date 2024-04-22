@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace TowerDefence
@@ -12,9 +12,6 @@ namespace TowerDefence
             InitializeComponent();
             Instance = this;
         }
-
-        Bitmap bitmap;
-        Graphics graphics;
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -32,11 +29,16 @@ namespace TowerDefence
                 Close();
         }
 
+        // Timer este o componenta a formularelor care apeleaza metoda la un interval fix.
+        // Intervalul are valoarea initiala 100 (milisecunde), dar am setat-o la 10 pentru a executa codul mai des
         private void timer1_Tick(object sender, EventArgs e)
         {
-            foreach (Bloon bloon in Engine.bloons)
-                if(bloon.SpawnTime <= Engine.time)
+            // Pentru fiecare balon, il miscam mai departe in path,
+            // dar doar daca este timpul sa fie spawned
+            foreach (Bloon bloon in Engine.bloons.ToList())
+                if (bloon.SpawnTime <= Engine.time)
                     bloon.Move();
+            // De fiecare data cand facem modificari, vrem sa le afisam
             Engine.Draw();
             Engine.time++;
         }

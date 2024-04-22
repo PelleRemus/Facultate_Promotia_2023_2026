@@ -7,13 +7,13 @@ namespace TowerDefence
     public static class Engine
     {
         public static Bitmap bitmap;
-        public static Graphics graphics;
         public static Path path;
         public static List<Bloon> bloons;
-        public static int time = 0;
+        public static int time = 0;     // Tine minte de cate ori a fost apelat Tick-ul din timer
 
         public static void Initialize()
         {
+            // Punctele care reprezinta marginile path-ului
             List<Point> points = new List<Point>
             {
                 new Point(0, Form1.Instance.Height / 2),
@@ -34,6 +34,7 @@ namespace TowerDefence
             };
             path = new Path(points);
 
+            // Adaugam baloanele de test in lista de baloane
             bloons = new List<Bloon>();
             bloons.Add(new RedBloon(0));
             bloons.Add(new BlueBloon(15));
@@ -45,16 +46,25 @@ namespace TowerDefence
 
         public static void Draw()
         {
+            // Pentru a nu da de eroarea OutOfMemory, stergem din memorie imaginea precedenta
+            if (bitmap != null)
+                bitmap.Dispose();
+
+            // Imaginea pe care vrem sa o afisam 
             bitmap = new Bitmap(Form1.Instance.Width, Form1.Instance.Height);
-            graphics = Graphics.FromImage(bitmap);
-            graphics.Clear(Color.ForestGreen);
+            // Folosim cuvantul cheie 'using' tot pentru eliberare de memorie
+            using (Graphics graphics = Graphics.FromImage(bitmap))
+            {
+                graphics.Clear(Color.ForestGreen); // Afisam culoarea de fundal
+                // Afisam toate dreptunghiurile care formeaza path-ul
+                foreach (Rectangle rectangle in path.Bounds)
+                    graphics.FillRectangle(new SolidBrush(Color.DarkGray), rectangle);
 
-            foreach (Rectangle rectangle in path.Bounds)
-                graphics.FillRectangle(new SolidBrush(Color.DarkGray), rectangle);
-
-            foreach (Bloon bloon in bloons)
-                graphics.FillRectangle(new SolidBrush(bloon.Color), bloon.Location.X, bloon.Location.Y,
-                    bloon.Size, bloon.Size);
+                // Afisam toate baloanele la locatia si cu dimensiunile fiecaruia
+                foreach (Bloon bloon in bloons)
+                    graphics.FillRectangle(new SolidBrush(bloon.Color), bloon.Location.X, bloon.Location.Y,
+                        bloon.Size, bloon.Size);
+            }
             Form1.Instance.pictureBox1.Image = bitmap;
         }
     }
