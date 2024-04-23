@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using TowerDefence.TowerTypes;
 
 namespace TowerDefence
 {
     public partial class Form1 : Form
     {
+        public Point MouseLocation { get; set; }
         public static Form1 Instance;
         public Form1()
         {
@@ -21,9 +24,15 @@ namespace TowerDefence
 
             Engine.Initialize();
             Engine.Draw();
+
+            DartMonkey.InitializeButton();
+            TackShooter.InitializeButton();
+            IceTower.InitializeButton();
+            BombShooter.InitializeButton();
+            SuperMonkey.InitializeButton();
         }
 
-        private void Control_KeyDown(object sender, KeyEventArgs e)
+        public void Control_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
                 Close();
@@ -41,6 +50,15 @@ namespace TowerDefence
             // De fiecare data cand facem modificari, vrem sa le afisam
             Engine.Draw();
             Engine.time++;
+        }
+
+        // Detectam locatia mouse-ului in momentul in care acesta se misca peste ecran.
+        // Aceasta va reprezenta pozitia tower-ului care nu a fost plasat inca, actualizata in timp real
+        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
+        {
+            MouseLocation = e.Location;
+            if (Engine.selectedTower != null)
+                Engine.selectedTower.Location = MouseLocation;
         }
     }
 }

@@ -9,6 +9,8 @@ namespace TowerDefence
         public static Bitmap bitmap;
         public static Path path;
         public static List<Bloon> bloons;
+        public static List<Tower> towers;
+        public static Tower selectedTower;
         public static int time = 0;     // Tine minte de cate ori a fost apelat Tick-ul din timer
 
         public static void Initialize()
@@ -33,6 +35,7 @@ namespace TowerDefence
                 new Point(2 * Form1.Instance.Width / 5, 0),
             };
             path = new Path(points);
+            towers = new List<Tower>();
 
             // Adaugam baloanele de test in lista de baloane
             bloons = new List<Bloon>();
@@ -64,6 +67,37 @@ namespace TowerDefence
                 foreach (Bloon bloon in bloons)
                     graphics.FillRectangle(new SolidBrush(bloon.Color), bloon.Location.X, bloon.Location.Y,
                         bloon.Size, bloon.Size);
+
+                // Intai afisam toate tower-urile
+                foreach (Tower tower in towers)
+                {
+                    // Afisam tower-ul cu culoarea sa
+                    // Pentru ca locatia tower-ului reprezinta mijlocul sau, pentru a ajunge la coltul din stanga sus,
+                    // scadem din locatie jumatate din dimensiunea imaginii tower-ului
+                    graphics.FillEllipse(new SolidBrush(tower.Color),
+                        tower.Location.X - tower.ImageSize / 2, tower.Location.Y - tower.ImageSize / 2,
+                        tower.ImageSize, tower.ImageSize);
+                    // Temporar, afisam footprint-ul, ne va ajuta la implementare
+                    graphics.FillEllipse(new SolidBrush(Color.FromArgb(100, Color.Black)),
+                        tower.Location.X - tower.Footprint / 2, tower.Location.Y - tower.Footprint / 2,
+                        tower.Footprint, tower.Footprint);
+                }
+                // Apoi afisam din nou tower-ul selectat, impreuna cu raza sa
+                if (selectedTower != null)
+                {
+                    // Intai afisam raza tower-ului selectat
+                    graphics.FillEllipse(new SolidBrush(Color.FromArgb(100, Color.White)),
+                        selectedTower.Location.X - selectedTower.Range, selectedTower.Location.Y - selectedTower.Range,
+                        selectedTower.Range * 2, selectedTower.Range * 2);
+                    // Apoi afisam tower-ul selectat cu culoarea sa
+                    graphics.FillEllipse(new SolidBrush(selectedTower.Color),
+                        selectedTower.Location.X - selectedTower.ImageSize / 2, selectedTower.Location.Y - selectedTower.ImageSize / 2,
+                        selectedTower.ImageSize, selectedTower.ImageSize);
+                    // Temporar, afisam footprint-ul
+                    graphics.FillEllipse(new SolidBrush(Color.FromArgb(100, Color.Black)),
+                        selectedTower.Location.X - selectedTower.Footprint / 2, selectedTower.Location.Y - selectedTower.Footprint / 2,
+                        selectedTower.Footprint, selectedTower.Footprint);
+                }
             }
             Form1.Instance.pictureBox1.Image = bitmap;
         }
