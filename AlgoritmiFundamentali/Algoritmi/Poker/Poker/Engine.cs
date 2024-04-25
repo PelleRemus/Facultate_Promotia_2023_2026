@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -7,80 +8,78 @@ namespace Poker
 {
     public static class Engine
     {
-        //     Configuratii posibile:
-        // one pair - acelasi numar apare de doua ori
-        // two pairs - acelasi numar apare de doua ori, doua perechi
-        // three of a kind - acelasi numar apare de trei ori
-        // straight - in mana, apar cartile in ordine (culoarea nu conteaza)
-        // flush - 5 carti de aceeasi culoare
-        // full house - one pair + three of a kind
-        // four of a kind - acelasi numar apare de 4 ori
-        // straight flush - straight + flush
-
-        public static Image[] cardsImages = new Image[]
-        {
-            Image.FromFile("../../Images/2OfClubs card.png"),       // 0
-            Image.FromFile("../../Images/3OfClubs card.png"),       // 1
-            Image.FromFile("../../Images/4OfClubs card.png"),
-            Image.FromFile("../../Images/5OfClubs card.png"),
-            Image.FromFile("../../Images/6OfClubs card.png"),
-            Image.FromFile("../../Images/7OfClubs card.png"),
-            Image.FromFile("../../Images/8OfClubs card.png"),
-            Image.FromFile("../../Images/9OfClubs card.png"),
-            Image.FromFile("../../Images/10OfClubs card.png"),
-            Image.FromFile("../../Images/JackOfClubs card.png"),
-            Image.FromFile("../../Images/QueenOfClubs card.png"),
-            Image.FromFile("../../Images/KingOfClubs card.png"),
-            Image.FromFile("../../Images/AceOfClubs card.png"),     // 12
-
-            Image.FromFile("../../Images/2OfSpades card.png"),      // 13
-            Image.FromFile("../../Images/3OfSpades card.png"),      // 14
-            Image.FromFile("../../Images/4OfSpades card.png"),
-            Image.FromFile("../../Images/5OfSpades card.png"),
-            Image.FromFile("../../Images/6OfSpades card.png"),
-            Image.FromFile("../../Images/7OfSpades card.png"),
-            Image.FromFile("../../Images/8OfSpades card.png"),
-            Image.FromFile("../../Images/9OfSpades card.png"),
-            Image.FromFile("../../Images/10OfSpades card.png"),
-            Image.FromFile("../../Images/JackOfSpades card.png"),
-            Image.FromFile("../../Images/QueenOfSpades card.png"),
-            Image.FromFile("../../Images/KingOfSpades card.png"),
-            Image.FromFile("../../Images/AceOfSpades card.png"),    // 25
-
-            Image.FromFile("../../Images/2OfHearts card.png"),      // 26
-            Image.FromFile("../../Images/3OfHearts card.png"),      // 27
-            Image.FromFile("../../Images/4OfHearts card.png"),
-            Image.FromFile("../../Images/5OfHearts card.png"),
-            Image.FromFile("../../Images/6OfHearts card.png"),
-            Image.FromFile("../../Images/7OfHearts card.png"),
-            Image.FromFile("../../Images/8OfHearts card.png"),
-            Image.FromFile("../../Images/9OfHearts card.png"),
-            Image.FromFile("../../Images/10OfHearts card.png"),
-            Image.FromFile("../../Images/JackOfHearts card.png"),
-            Image.FromFile("../../Images/QueenOfHearts card.png"),
-            Image.FromFile("../../Images/KingOfHearts card.png"),
-            Image.FromFile("../../Images/AceOfHearts card.png"),    // 38
-
-            Image.FromFile("../../Images/2OfDiamonds card.png"),    // 39
-            Image.FromFile("../../Images/3OfDiamonds card.png"),    // 40
-            Image.FromFile("../../Images/4OfDiamonds card.png"),
-            Image.FromFile("../../Images/5OfDiamonds card.png"),
-            Image.FromFile("../../Images/6OfDiamonds card.png"),
-            Image.FromFile("../../Images/7OfDiamonds card.png"),
-            Image.FromFile("../../Images/8OfDiamonds card.png"),
-            Image.FromFile("../../Images/9OfDiamonds card.png"),
-            Image.FromFile("../../Images/10OfDiamonds card.png"),
-            Image.FromFile("../../Images/JackOfDiamonds card.png"),
-            Image.FromFile("../../Images/QueenOfDiamonds card.png"),
-            Image.FromFile("../../Images/KingOfDiamonds card.png"),
-            Image.FromFile("../../Images/AceOfDiamonds card.png"),  // 51
-        };
+        public static List<Card> cards = new List<Card>();
         public static Random random = new Random();
         public static int n = 52;
         public static int[] cardsOrder;
 
         public static void Initiaize()
         {
+            //     Configuratii posibile:
+            // one pair - acelasi numar apare de doua ori
+            // two pairs - acelasi numar apare de doua ori, doua perechi
+            // three of a kind - acelasi numar apare de trei ori
+            // straight - in mana, apar cartile in ordine (culoarea nu conteaza)
+            // flush - 5 carti de aceeasi culoare
+            // full house - one pair + three of a kind
+            // four of a kind - acelasi numar apare de 4 ori
+            // straight flush - straight + flush
+            cards.Add(new Card("../../Images/2OfClubs card.png"));
+            cards.Add(new Card("../../Images/3OfClubs card.png"));
+            cards.Add(new Card("../../Images/4OfClubs card.png"));
+            cards.Add(new Card("../../Images/5OfClubs card.png"));
+            cards.Add(new Card("../../Images/6OfClubs card.png"));
+            cards.Add(new Card("../../Images/7OfClubs card.png"));
+            cards.Add(new Card("../../Images/8OfClubs card.png"));
+            cards.Add(new Card("../../Images/9OfClubs card.png"));
+            cards.Add(new Card("../../Images/10OfClubs card.png"));
+            cards.Add(new Card("../../Images/JackOfClubs card.png"));
+            cards.Add(new Card("../../Images/QueenOfClubs card.png"));
+            cards.Add(new Card("../../Images/KingOfClubs card.png"));
+            cards.Add(new Card("../../Images/AceOfClubs card.png"));
+
+            cards.Add(new Card("../../Images/2OfSpades card.png"));
+            cards.Add(new Card("../../Images/3OfSpades card.png"));
+            cards.Add(new Card("../../Images/4OfSpades card.png"));
+            cards.Add(new Card("../../Images/5OfSpades card.png"));
+            cards.Add(new Card("../../Images/6OfSpades card.png"));
+            cards.Add(new Card("../../Images/7OfSpades card.png"));
+            cards.Add(new Card("../../Images/8OfSpades card.png"));
+            cards.Add(new Card("../../Images/9OfSpades card.png"));
+            cards.Add(new Card("../../Images/10OfSpades card.png"));
+            cards.Add(new Card("../../Images/JackOfSpades card.png"));
+            cards.Add(new Card("../../Images/QueenOfSpades card.png"));
+            cards.Add(new Card("../../Images/KingOfSpades card.png"));
+            cards.Add(new Card("../../Images/AceOfSpades card.png"));
+
+            cards.Add(new Card("../../Images/2OfHearts card.png"));
+            cards.Add(new Card("../../Images/3OfHearts card.png"));
+            cards.Add(new Card("../../Images/4OfHearts card.png"));
+            cards.Add(new Card("../../Images/5OfHearts card.png"));
+            cards.Add(new Card("../../Images/6OfHearts card.png"));
+            cards.Add(new Card("../../Images/7OfHearts card.png"));
+            cards.Add(new Card("../../Images/8OfHearts card.png"));
+            cards.Add(new Card("../../Images/9OfHearts card.png"));
+            cards.Add(new Card("../../Images/10OfHearts card.png"));
+            cards.Add(new Card("../../Images/JackOfHearts card.png"));
+            cards.Add(new Card("../../Images/QueenOfHearts card.png"));
+            cards.Add(new Card("../../Images/KingOfHearts card.png"));
+            cards.Add(new Card("../../Images/AceOfHearts card.png"));
+
+            cards.Add(new Card("../../Images/2OfDiamonds card.png"));
+            cards.Add(new Card("../../Images/3OfDiamonds card.png"));
+            cards.Add(new Card("../../Images/4OfDiamonds card.png"));
+            cards.Add(new Card("../../Images/5OfDiamonds card.png"));
+            cards.Add(new Card("../../Images/6OfDiamonds card.png"));
+            cards.Add(new Card("../../Images/7OfDiamonds card.png"));
+            cards.Add(new Card("../../Images/8OfDiamonds card.png"));
+            cards.Add(new Card("../../Images/9OfDiamonds card.png"));
+            cards.Add(new Card("../../Images/10OfDiamonds card.png"));
+            cards.Add(new Card("../../Images/JackOfDiamonds card.png"));
+            cards.Add(new Card("../../Images/QueenOfDiamonds card.png"));
+            cards.Add(new Card("../../Images/KingOfDiamonds card.png"));
+            cards.Add(new Card("../../Images/AceOfDiamonds card.png"));
+
             cardsOrder = new int[n];
             for (int i = 0; i < n; i++)
                 cardsOrder[i] = i;
