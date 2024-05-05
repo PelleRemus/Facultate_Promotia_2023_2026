@@ -8,7 +8,7 @@ namespace TowerDefence.TowerTypes
         public static Button button;
 
         public TackShooter(Point location)
-            : base(location, Color.Pink, 50, 80, 140) // Extra Range: 160
+            : base(location, Color.Pink, 50, 70, 140) // Extra Range: 160
         { }
 
         public static void InitializeButton()

@@ -21,6 +21,10 @@ namespace Poker
         public int Number { get; set; }
         public Suits Suit { get; set; }
 
+        public Card(int number)
+        {
+            Number = number;
+        }
         public Card(string path)
         {
             Image = Image.FromFile(path);

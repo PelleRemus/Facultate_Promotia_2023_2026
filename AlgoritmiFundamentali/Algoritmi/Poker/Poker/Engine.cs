@@ -105,20 +105,20 @@ namespace Poker
         {
             Shuffle();
 
-            CardDealingAnimation(Form1.Instance.p1_1, cardsImages[cardsOrder[0]]); await Task.Delay(200);
-            CardDealingAnimation(Form1.Instance.p1_2, cardsImages[cardsOrder[1]]); await Task.Delay(200);
-            CardDealingAnimation(Form1.Instance.p1_3, cardsImages[cardsOrder[2]]); await Task.Delay(200);
-            CardDealingAnimation(Form1.Instance.p1_4, cardsImages[cardsOrder[3]]); await Task.Delay(200);
-            CardDealingAnimation(Form1.Instance.p1_5, cardsImages[cardsOrder[4]]); await Task.Delay(200);
+            CardDealingAnimation(Form1.Instance.p1_1, cards[cardsOrder[0]].Image); await Task.Delay(200);
+            CardDealingAnimation(Form1.Instance.p1_2, cards[cardsOrder[1]].Image); await Task.Delay(200);
+            CardDealingAnimation(Form1.Instance.p1_3, cards[cardsOrder[2]].Image); await Task.Delay(200);
+            CardDealingAnimation(Form1.Instance.p1_4, cards[cardsOrder[3]].Image); await Task.Delay(200);
+            CardDealingAnimation(Form1.Instance.p1_5, cards[cardsOrder[4]].Image); await Task.Delay(200);
 
-            CardDealingAnimation(Form1.Instance.p2_1, cardsImages[cardsOrder[5]]); await Task.Delay(200);
-            CardDealingAnimation(Form1.Instance.p2_2, cardsImages[cardsOrder[6]]); await Task.Delay(200);
-            CardDealingAnimation(Form1.Instance.p2_3, cardsImages[cardsOrder[7]]); await Task.Delay(200);
-            CardDealingAnimation(Form1.Instance.p2_4, cardsImages[cardsOrder[8]]); await Task.Delay(200);
-            CardDealingAnimation(Form1.Instance.p2_5, cardsImages[cardsOrder[9]]); await Task.Delay(2000);
+            CardDealingAnimation(Form1.Instance.p2_1, cards[cardsOrder[5]].Image); await Task.Delay(200);
+            CardDealingAnimation(Form1.Instance.p2_2, cards[cardsOrder[6]].Image); await Task.Delay(200);
+            CardDealingAnimation(Form1.Instance.p2_3, cards[cardsOrder[7]].Image); await Task.Delay(200);
+            CardDealingAnimation(Form1.Instance.p2_4, cards[cardsOrder[8]].Image); await Task.Delay(200);
+            CardDealingAnimation(Form1.Instance.p2_5, cards[cardsOrder[9]].Image); await Task.Delay(2000);
         }
 
-        public static async Task CardDealingAnimation(PictureBox destination, Image cardImage)
+        public static async void CardDealingAnimation(PictureBox destination, Image cardImage)
         {
             PictureBox card = Form1.Instance.CreatePictureBoxForNewCard();
             float percent = 30F / Distance(card.Location, destination.Location);

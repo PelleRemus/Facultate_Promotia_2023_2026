@@ -8,7 +8,7 @@ namespace TowerDefence.TowerTypes
         public static Button button;
 
         public BombShooter(Point location)
-            : base(location, Color.Black, 50, 90, 240) // Extra Range: 280
+            : base(location, Color.Black, 50, 80, 240) // Extra Range: 280
         { }
 
         public static void InitializeButton()

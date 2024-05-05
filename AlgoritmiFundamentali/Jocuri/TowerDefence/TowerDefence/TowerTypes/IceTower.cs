@@ -8,7 +8,7 @@ namespace TowerDefence.TowerTypes
         public static Button button;
 
         public IceTower(Point location)
-            : base(location, Color.SkyBlue, 50, 70, 120) // Wide Freeze: 150
+            : base(location, Color.SkyBlue, 50, 58, 120) // Wide Freeze: 150
         { }
 
         public static void InitializeButton()

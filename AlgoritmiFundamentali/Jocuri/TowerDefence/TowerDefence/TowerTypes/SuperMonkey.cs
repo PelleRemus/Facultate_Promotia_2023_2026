@@ -8,7 +8,7 @@ namespace TowerDefence.TowerTypes
         public static Button button;
 
         public SuperMonkey(Point location)
-            : base(location, Color.Blue, 50, 100, 280) // Epic Range: 480
+            : base(location, Color.Blue, 50, 94, 280) // Epic Range: 480
         { }
 
         public static void InitializeButton()

@@ -4,7 +4,7 @@ namespace TowerDefence.BloonTypes
 {
     public class WhiteBloon : Bloon
     {
-        public WhiteBloon(int spawnTime) : base(Color.White, 25, 4, spawnTime)
+        public WhiteBloon(int spawnTime) : base(Color.White, 25, 7, spawnTime)
         { }
     }
 }
