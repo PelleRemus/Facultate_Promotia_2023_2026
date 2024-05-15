@@ -5,20 +5,17 @@ namespace TowerDefence.TowerTypes
 {
     public class IceTower : Tower
     {
+        static readonly Image image = Image.FromFile("../../Images/IceTower.png");
         public static Button button;
 
         public IceTower(Point location)
-            : base(location, Color.SkyBlue, 50, 58, 120) // Wide Freeze: 150
+            : base(location, image, 70, 70, 150)
         { }
 
         public static void InitializeButton()
         {
             button = new Button();
-            button.Parent = Form1.Instance.panel1;
-            button.Location = new Point(135, 200);
-            button.Size = new Size(65, 65);
-            button.BackColor = Color.SkyBlue;
-            button.KeyDown += Form1.Instance.Control_KeyDown;
+            Form1.InitializeButton(button, image, new Point(135, 200));
             button.Click += Button_Click;
         }
 

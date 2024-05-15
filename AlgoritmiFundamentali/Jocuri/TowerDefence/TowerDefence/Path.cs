@@ -6,7 +6,7 @@ namespace TowerDefence
 {
     public class Path
     {
-        public const int thickness = 30;
+        public const int thickness = 50;
         public List<Point> Points { get; set; }
         public List<Rectangle> Bounds { get; set; }
 

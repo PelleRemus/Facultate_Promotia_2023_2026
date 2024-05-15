@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using TowerDefence.BloonTypes;
 
@@ -65,41 +66,41 @@ namespace TowerDefence
 
                 // Afisam toate baloanele la locatia si cu dimensiunile fiecaruia
                 foreach (Bloon bloon in bloons)
-                    graphics.FillRectangle(new SolidBrush(bloon.Color), bloon.Location.X, bloon.Location.Y,
-                        bloon.Size, bloon.Size);
+                    graphics.DrawImage(bloon.Image, bloon.Location.X, bloon.Location.Y, bloon.Size, bloon.Size);
 
-                // Intai afisam toate tower-urile
+                // Intai afisam toate tower-urile, mai putin cel selectat
                 foreach (Tower tower in towers)
-                {
-                    // Afisam tower-ul cu culoarea sa
-                    // Pentru ca locatia tower-ului reprezinta mijlocul sau, pentru a ajunge la coltul din stanga sus,
-                    // scadem din locatie jumatate din dimensiunea imaginii tower-ului
-                    graphics.FillEllipse(new SolidBrush(tower.Color),
-                        tower.Location.X - tower.ImageSize / 2, tower.Location.Y - tower.ImageSize / 2,
-                        tower.ImageSize, tower.ImageSize);
-                    // Temporar, afisam footprint-ul, ne va ajuta la implementare
-                    graphics.FillEllipse(new SolidBrush(Color.FromArgb(100, Color.Black)),
-                        tower.Location.X - tower.Footprint / 2, tower.Location.Y - tower.Footprint / 2,
-                        tower.Footprint, tower.Footprint);
-                }
-                // Apoi afisam din nou tower-ul selectat, impreuna cu raza sa
+                    if (tower != selectedTower)
+                        tower.Draw(graphics);
+                // Apoi afisam doar tower-ul selectat (pentru a afisa si raza peste celelalte)
                 if (selectedTower != null)
-                {
-                    // Intai afisam raza tower-ului selectat
-                    graphics.FillEllipse(new SolidBrush(Color.FromArgb(100, Color.White)),
-                        selectedTower.Location.X - selectedTower.Range, selectedTower.Location.Y - selectedTower.Range,
-                        selectedTower.Range * 2, selectedTower.Range * 2);
-                    // Apoi afisam tower-ul selectat cu culoarea sa
-                    graphics.FillEllipse(new SolidBrush(selectedTower.Color),
-                        selectedTower.Location.X - selectedTower.ImageSize / 2, selectedTower.Location.Y - selectedTower.ImageSize / 2,
-                        selectedTower.ImageSize, selectedTower.ImageSize);
-                    // Temporar, afisam footprint-ul
-                    graphics.FillEllipse(new SolidBrush(Color.FromArgb(100, Color.Black)),
-                        selectedTower.Location.X - selectedTower.Footprint / 2, selectedTower.Location.Y - selectedTower.Footprint / 2,
-                        selectedTower.Footprint, selectedTower.Footprint);
-                }
+                    selectedTower.Draw(graphics);
             }
             Form1.Instance.pictureBox1.Image = bitmap;
         }
+
+        public static Tower GetClosestTower(Point point, out float min)
+        {
+            // Consideram initial ca primul tower este cel mai apropiat
+            Tower tower = towers[0];
+            min = Distance(point, tower.Location);
+
+            // Dupa care, pentru fiecare alt tower din lista
+            for (int i = 1; i < towers.Count; i++)
+            {
+                // Calculam distanta
+                float distance = Distance(point, towers[i].Location);
+                // Si daca aceasta este mai mica decat minimul curent, stim ca am gasit un nou minim
+                if (distance < min)
+                {
+                    min = distance;
+                    tower = towers[i];
+                }
+            }
+            return tower;
+        }
+
+        public static float Distance(Point p1, Point p2)
+            => (float)Math.Sqrt((p1.X - p2.X) * (p1.X - p2.X) + (p1.Y - p2.Y) * (p1.Y - p2.Y));
     }
 }

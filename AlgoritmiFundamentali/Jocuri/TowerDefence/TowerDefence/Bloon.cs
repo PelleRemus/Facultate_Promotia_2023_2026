@@ -8,14 +8,14 @@ namespace TowerDefence
         public Point Location { get; set; }
         public Point Destination { get; set; }
         public int DestinationIndex { get; set; }
-        public Color Color { get; set; }
+        public Image Image { get; set; }
         public int Size { get; set; }
         public int Speed { get; set; }
         public int SpawnTime { get; set; }
 
-        public Bloon(Color color, int size, int speed, int spawnTime)
+        public Bloon(Image image, int size, int speed, int spawnTime)
         {
-            Color = color;
+            Image = image;
             Size = size;
             Speed = speed;
             SpawnTime = spawnTime;

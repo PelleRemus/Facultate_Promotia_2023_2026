@@ -5,20 +5,17 @@ namespace TowerDefence.TowerTypes
 {
     public class SuperMonkey : Tower
     {
+        static readonly Image image = Image.FromFile("../../Images/SuperMonkey.png");
         public static Button button;
 
         public SuperMonkey(Point location)
-            : base(location, Color.Blue, 50, 94, 280) // Epic Range: 480
+            : base(location, image, 70, 110, 350)
         { }
 
         public static void InitializeButton()
         {
             button = new Button();
-            button.Parent = Form1.Instance.panel1;
-            button.Location = new Point(265, 200);
-            button.Size = new Size(65, 65);
-            button.BackColor = Color.Blue;
-            button.KeyDown += Form1.Instance.Control_KeyDown;
+            Form1.InitializeButton(button, image, new Point(265, 200));
             button.Click += Button_Click;
         }
 

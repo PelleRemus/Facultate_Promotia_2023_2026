@@ -5,20 +5,17 @@ namespace TowerDefence.TowerTypes
 {
     public class DartMonkey : Tower
     {
+        static readonly Image image = Image.FromFile("../../Images/DartMonkey.png");
         public static Button button;
 
         public DartMonkey(Point location)
-            : base(location, Color.Brown, 50, 80, 200) // Long Range: 250
+            : base(location, image, 70, 95, 250)
         { }
 
         public static void InitializeButton()
         {
             button = new Button();
-            button.Parent = Form1.Instance.panel1;
-            button.Location = new Point(5, 200);
-            button.Size = new Size(65, 65);
-            button.BackColor = Color.Brown;
-            button.KeyDown += Form1.Instance.Control_KeyDown;
+            Form1.InitializeButton(button, image, new Point(5, 200));
             button.Click += Button_Click;
         }
 

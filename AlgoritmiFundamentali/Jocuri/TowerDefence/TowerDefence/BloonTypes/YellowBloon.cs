@@ -4,7 +4,8 @@ namespace TowerDefence.BloonTypes
 {
     public class YellowBloon : Bloon
     {
-        public YellowBloon(int spawnTime) : base(Color.Yellow, 55, 9, spawnTime)
+        static readonly Image image = Image.FromFile("../../Images/YellowBloon.png");
+        public YellowBloon(int spawnTime) : base(image, 90, 9, spawnTime)
         { }
     }
 }

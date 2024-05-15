@@ -57,8 +57,35 @@ namespace TowerDefence
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
             MouseLocation = e.Location;
-            if (Engine.selectedTower != null)
+            if (Engine.selectedTower != null && !Engine.selectedTower.IsPlaced)
                 Engine.selectedTower.Location = MouseLocation;
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            // Daca avem un tower selectat care inca nu este plasat, il plasam
+            if (Engine.selectedTower != null && !Engine.selectedTower.IsPlaced)
+                Engine.selectedTower.IsPlaced = true;
+            else
+            {
+                // Altfel, luam cel mai apropiat tower si il selectam daca este in raza corecta
+                Tower closest = Engine.GetClosestTower(MouseLocation, out float distance);
+                if (closest != null && closest.ImageSize / 2 >= distance)
+                    Engine.selectedTower = closest;
+                else
+                    Engine.selectedTower = null;
+            }
+        }
+
+        public static void InitializeButton(Button button, Image image, Point location)
+        {
+            button.Parent = Instance.panel1;
+            button.Location = location;
+            button.Size = new Size(65, 65);
+            button.BackColor = Color.ForestGreen;
+            button.BackgroundImage = image;
+            button.BackgroundImageLayout = ImageLayout.Stretch;
+            button.KeyDown += Instance.Control_KeyDown;
         }
     }
 }

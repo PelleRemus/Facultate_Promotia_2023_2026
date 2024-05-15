@@ -5,20 +5,17 @@ namespace TowerDefence.TowerTypes
 {
     public class BombShooter : Tower
     {
+        static readonly Image image = Image.FromFile("../../Images/BombShooter.png");
         public static Button button;
 
         public BombShooter(Point location)
-            : base(location, Color.Black, 50, 80, 240) // Extra Range: 280
+            : base(location, image, 70, 95, 300)
         { }
 
         public static void InitializeButton()
         {
             button = new Button();
-            button.Parent = Form1.Instance.panel1;
-            button.Location = new Point(200, 200);
-            button.Size = new Size(65, 65);
-            button.BackColor = Color.Black;
-            button.KeyDown += Form1.Instance.Control_KeyDown;
+            Form1.InitializeButton(button, image, new Point(200, 200));
             button.Click += Button_Click;
         }
 
