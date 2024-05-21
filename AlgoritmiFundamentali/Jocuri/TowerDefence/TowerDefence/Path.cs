@@ -50,5 +50,32 @@ namespace TowerDefence
                 Bounds.Add(rectangle);
             }
         }
+
+        public bool IntersectsWithTower(Tower tower)
+        {
+            foreach (Rectangle rectangle in Bounds)
+            {
+                // Calculam distanta dintre centrul cercului si centrul dreptunghiului
+                int x = Math.Abs(tower.Location.X - (rectangle.X + rectangle.Width / 2));
+                int y = Math.Abs(tower.Location.Y - (rectangle.Y + rectangle.Height / 2));
+
+                // Daca tower-ul este complet inafara dreptunghiului pe una dintre directii, continuam
+                if (x > rectangle.Width / 2 + tower.Footprint / 2
+                    || y > rectangle.Height / 2 + tower.Footprint / 2)
+                    continue;
+
+                // Altfel, daca este clar ca cercul este in interiorul dreptunghiului
+                // pe una dintre directii, return true
+                if (x <= rectangle.Width / 2 || y <= rectangle.Height / 2)
+                    return true;
+
+                // cazul exceptional pentru coltul dreptunghiului
+                int cornerDistance = (x - rectangle.Width / 2) * (x - rectangle.Width / 2)
+                        + (y - rectangle.Height / 2) * (y - rectangle.Height / 2);
+                if (cornerDistance <= tower.Footprint * tower.Footprint / 4)
+                    return true;
+            }
+            return false;
+        }
     }
 }

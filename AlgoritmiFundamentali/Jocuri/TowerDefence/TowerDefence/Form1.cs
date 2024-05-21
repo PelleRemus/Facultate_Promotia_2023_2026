@@ -65,11 +65,14 @@ namespace TowerDefence
         {
             // Daca avem un tower selectat care inca nu este plasat, il plasam
             if (Engine.selectedTower != null && !Engine.selectedTower.IsPlaced)
-                Engine.selectedTower.IsPlaced = true;
+            {
+                if (Engine.CanPlaceSelectedTower())
+                    Engine.selectedTower.IsPlaced = true;
+            }
             else
             {
                 // Altfel, luam cel mai apropiat tower si il selectam daca este in raza corecta
-                Tower closest = Engine.GetClosestTower(MouseLocation, out float distance);
+                Tower closest = Engine.GetClosestTower(MouseLocation, out float distance, Engine.towers);
                 if (closest != null && closest.ImageSize / 2 >= distance)
                     Engine.selectedTower = closest;
                 else
