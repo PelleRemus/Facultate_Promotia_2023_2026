@@ -36,6 +36,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.button5 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -54,7 +55,7 @@
             this.button1.BackColor = System.Drawing.Color.RoyalBlue;
             this.button1.Font = new System.Drawing.Font("Comic Sans MS", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(1018, 267);
+            this.button1.Location = new System.Drawing.Point(1018, 201);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(260, 60);
             this.button1.TabIndex = 1;
@@ -81,7 +82,7 @@
             this.button3.Enabled = false;
             this.button3.Font = new System.Drawing.Font("Comic Sans MS", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.ForeColor = System.Drawing.Color.White;
-            this.button3.Location = new System.Drawing.Point(1018, 333);
+            this.button3.Location = new System.Drawing.Point(1018, 267);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(260, 60);
             this.button3.TabIndex = 3;
@@ -114,7 +115,7 @@
             this.button4.Enabled = false;
             this.button4.Font = new System.Drawing.Font("Comic Sans MS", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button4.ForeColor = System.Drawing.Color.White;
-            this.button4.Location = new System.Drawing.Point(1018, 399);
+            this.button4.Location = new System.Drawing.Point(1018, 333);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(260, 60);
             this.button4.TabIndex = 6;
@@ -133,11 +134,26 @@
             this.checkBox1.Text = "Shuffle";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
+            // button5
+            // 
+            this.button5.BackColor = System.Drawing.Color.RoyalBlue;
+            this.button5.Enabled = false;
+            this.button5.Font = new System.Drawing.Font("Comic Sans MS", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button5.ForeColor = System.Drawing.Color.White;
+            this.button5.Location = new System.Drawing.Point(1018, 399);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(260, 60);
+            this.button5.TabIndex = 8;
+            this.button5.Text = "Center";
+            this.button5.UseVisualStyleBackColor = false;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1290, 723);
+            this.Controls.Add(this.button5);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.label1);
@@ -164,6 +180,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button button5;
     }
 }
 
