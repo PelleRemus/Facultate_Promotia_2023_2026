@@ -1,0 +1,47 @@
+/*.class-name
+#id-name
+tag-name*/
+
+.main {
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-side {
+    flex: 1;
+    padding: 10px 20px;
+    background-color: cornflowerblue;
+}
+
+.right-side {
+    flex: 1;
+    padding: 10px 20px;
+    background-color: crimson;
+}
+
+.card {
+    margin-top: 10px;
+    padding: 10px 20px;
+    border-radius: 15px;
+    background-color: white;
+}
+
+h3, p {
+    margin: 0 !important;
+    text-align: justify;
+}
+
+.space-between {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.icon-text {
+    display: flex;
+    align-items: center;
+}
+
+img {
+    border-radius: 50%;
+}
