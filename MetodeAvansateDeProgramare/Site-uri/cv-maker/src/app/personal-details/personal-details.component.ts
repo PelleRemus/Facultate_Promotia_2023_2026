@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PersonalDetails } from '../models/personal-details'
 
 @Component({
   selector: 'app-personal-details',
@@ -8,5 +9,11 @@ import { Component } from '@angular/core';
   styleUrl: './personal-details.component.scss'
 })
 export class PersonalDetailsComponent {
-  email: string = "john.doe@gmail.com";
+  personalDetails: PersonalDetails = new PersonalDetails(
+    "John Doe",
+    "Software Developer",
+    "john.doe@gmail.com",
+    "",
+    "Oradea, Romania",
+  )
 }

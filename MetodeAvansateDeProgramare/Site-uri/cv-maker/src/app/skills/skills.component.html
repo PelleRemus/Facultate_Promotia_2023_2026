@@ -3,13 +3,16 @@
         <li class="list-group-item">
             <input class="w-100" value="Skills">
         </li>
-        <li class="list-group-item px-4">
-            <p class="h6">Backend</p>
-            <p class="text-secondary">.NET</p>
-            <p class="text-secondary">Proficient</p>
+        <li class="list-group-item px-5 py-4" *ngFor="let skill of skills">
+            <p class="h6">{{skill.skill}}</p>
+            <p class="text-secondary">{{skill.subSkills}}</p>
+            <p class="text-secondary">{{skill.skillLevel}}</p>
         </li>
         <li class="list-group-item d-flex justify-content-around">
-            <button class="btn btn-outline-dark w-30">+ Skill</button>
+            <button class="btn btn-outline-dark d-flex">
+                <i class="bi bi-plus"></i>
+                <p class="ms-1">Skill</p>
+            </button>
         </li>
     </ul>
 </div>
