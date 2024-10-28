@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using System.Linq;
+﻿using System.Linq;
 
 namespace Graph
 {
@@ -7,19 +6,26 @@ namespace Graph
     {
         public Vertex start, end;
 
-        public Edge(string buffer)
+        public Edge(string line)
         {
-            string[] line = buffer.Split(' ');
-            int startValue = int.Parse(line[0]);
-            int endValue = int.Parse(line[1]);
+            string[] values = line.Split(' ');
 
-            start = Graph.vertices.First(v => v.value == startValue);
-            end = Graph.vertices.First(v => v.value == endValue);
-        }
+            for (int i = 0; i < Graph.vertices.Count; i++)
+            {
+                Vertex vertex = Graph.vertices[i];
+                if (vertex.value == int.Parse(values[0]))
+                {
+                    start = vertex;
+                }
+                if (vertex.value == int.Parse(values[1]))
+                {
+                    end = vertex;
+                }
+            }
 
-        public void Draw()
-        {
-            Graph.graphics.DrawLine(new Pen(Color.Black, 3), start.position, end.position);
+            // Echivalent, folosind LINQ
+            //start = Graph.vertices.First(vertex => vertex.value == int.Parse(values[0]));
+            //end = Graph.vertices.First(vertex => vertex.value == int.Parse(values[1]));
         }
 
         public override string ToString()

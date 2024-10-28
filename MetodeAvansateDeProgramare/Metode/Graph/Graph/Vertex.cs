@@ -5,30 +5,18 @@ namespace Graph
     public class Vertex
     {
         public int value;
-        public Point position;
+        public Point location;
 
-        public Vertex(int value, string buffer)
+        public Vertex(int value, string line)
         {
             this.value = value;
-            string[] line = buffer.Split(' ');
-            int x = int.Parse(line[0]);
-            int y = int.Parse(line[1]);
-            position = new Point(x, y);
-        }
-
-        public void Draw()
-        {
-            Graph.graphics.FillEllipse(new SolidBrush(Color.White),
-                position.X - 15, position.Y - 15, 31, 31);
-            Graph.graphics.DrawEllipse(new Pen(Color.Black, 3),
-                position.X - 15, position.Y - 15, 31, 31);
-            Graph.graphics.DrawString(value.ToString(), new Font("Arial", 16, FontStyle.Bold),
-                new SolidBrush(Color.Black), position.X - 12, position.Y - 12);
+            string[] coordinates = line.Split(' ');
+            location = new Point(int.Parse(coordinates[0]), int.Parse(coordinates[1]));
         }
 
         public override string ToString()
         {
-            return $"{position.X} {position.Y}";
+            return $"{location.X} {location.Y}";
         }
     }
 }

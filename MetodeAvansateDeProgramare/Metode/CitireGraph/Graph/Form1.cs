@@ -8,15 +8,14 @@ namespace Graph
         public Form1()
         {
             InitializeComponent();
+            Graph.Init(this);
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Graph.Initialize(this);
             Graph.ReadFromFile("../../Input.txt");
             Graph.DisplayGraph();
-            Graph.DepthFirstSearch();
-            Graph.BreadthFirstSearch();
+            Graph.DrawGraph();
         }
     }
 }

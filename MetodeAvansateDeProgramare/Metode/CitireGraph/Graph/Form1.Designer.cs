@@ -35,31 +35,29 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.pictureBox1.BackColor = System.Drawing.Color.White;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox1.Location = new System.Drawing.Point(12, 12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1041, 771);
+            this.pictureBox1.Size = new System.Drawing.Size(912, 754);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
             // listBox1
             // 
-            this.listBox1.BackColor = System.Drawing.Color.Black;
-            this.listBox1.Font = new System.Drawing.Font("Comic Sans MS", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listBox1.ForeColor = System.Drawing.Color.Lime;
+            this.listBox1.Font = new System.Drawing.Font("Comic Sans MS", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 45;
-            this.listBox1.Location = new System.Drawing.Point(1059, 12);
+            this.listBox1.ItemHeight = 30;
+            this.listBox1.Location = new System.Drawing.Point(930, 12);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(445, 769);
+            this.listBox1.Size = new System.Drawing.Size(374, 754);
             this.listBox1.TabIndex = 1;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1516, 795);
+            this.ClientSize = new System.Drawing.Size(1316, 778);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.pictureBox1);
             this.Name = "Form1";
@@ -71,9 +69,8 @@
         }
 
         #endregion
-
-        public System.Windows.Forms.PictureBox pictureBox1;
         public System.Windows.Forms.ListBox listBox1;
+        public System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

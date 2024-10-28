@@ -1,28 +1,24 @@
 ﻿using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 
 namespace Graph
 {
     public static class Graph
     {
+        public static int n;
         public static List<Vertex> vertices = new List<Vertex>();
         public static List<Edge> edges = new List<Edge>();
-        public static int[,] matrix;
-        public static int n;
-
+        public static bool[] visited;
         public static Form1 form;
-        public static Bitmap bitmap;
-        public static Graphics graphics;
 
-        public static void Init(Form1 f)
+        public static void Initialize(Form1 form)
         {
-            form = f;
+            Graph.form = form;
         }
 
         public static void ReadFromFile(string path)
         {
-            using (var reader = new StreamReader(path))
+            using (TextReader reader = new StreamReader(path))
             {
                 string buffer = reader.ReadLine();
                 n = int.Parse(buffer);
@@ -38,41 +34,10 @@ namespace Graph
                     edges.Add(new Edge(buffer));
                 }
             }
-            ConvertToMatrix();
-        }
-
-        public static void ConvertToMatrix()
-        {
-            matrix = new int[n, n];
-            foreach (Edge edge in edges)
-            {
-                int i = edge.start.value - 1;
-                int j = edge.end.value - 1;
-                matrix[i, j] = 1;
-                matrix[j, i] = 1;
-            }
-        }
-
-        public static void DrawGraph()
-        {
-            bitmap = new Bitmap(form.pictureBox1.Width, form.pictureBox1.Height);
-            graphics = Graphics.FromImage(bitmap);
-
-            foreach (Edge edge in edges)
-            {
-                edge.Draw();
-            }
-            foreach (Vertex vertex in vertices)
-            {
-                vertex.Draw();
-            }
-
-            form.pictureBox1.Image = bitmap;
         }
 
         public static void DisplayGraph()
         {
-            form.listBox1.Items.Clear();
             form.listBox1.Items.Add(n.ToString());
             foreach (Vertex vertex in vertices)
             {
@@ -82,16 +47,62 @@ namespace Graph
             {
                 form.listBox1.Items.Add(edge.ToString());
             }
+        }
 
-            form.listBox1.Items.Add("");
-            for (int i = 0; i < n; i++)
+        // Parcurgere in adancime
+        public static void DepthFirstSearch()
+        {
+            form.listBox1.Items.Clear();
+            visited = new bool[n];
+            DepthFirstSearchRecursive(vertices[0]);
+        }
+
+        public static void DepthFirstSearchRecursive(Vertex vertex)
+        {
+            visited[vertex.value - 1] = true;
+            form.listBox1.Items.Add(vertex.value.ToString());
+
+            foreach (Edge edge in edges)
             {
-                string s = "";
-                for (int j = 0; j < n; j++)
+                if (edge.start == vertex && !visited[edge.end.value - 1])
                 {
-                    s = $"{s}{matrix[i, j]} ";
+                    DepthFirstSearchRecursive(edge.end);
                 }
-                form.listBox1.Items.Add(s);
+                if (edge.end == vertex && !visited[edge.start.value - 1])
+                {
+                    DepthFirstSearchRecursive(edge.start);
+                }
+            }
+        }
+
+        // Parcurgere in latime
+        public static void BreadthFirstSearch()
+        {
+            Queue<Vertex> queue = new Queue<Vertex>();
+            form.listBox1.Items.Clear();
+
+            visited = new bool[n];
+            queue.Enqueue(vertices[0]);
+            visited[vertices[0].value - 1] = true;
+
+            while (queue.Count > 0)
+            {
+                Vertex current = queue.Dequeue();
+                form.listBox1.Items.Add(current.value.ToString());
+
+                foreach (Edge edge in edges)
+                {
+                    if (edge.start == current && !visited[edge.end.value - 1])
+                    {
+                        queue.Enqueue(edge.end);
+                        visited[edge.end.value - 1] = true;
+                    }
+                    if (edge.end == current && !visited[edge.start.value - 1])
+                    {
+                        queue.Enqueue(edge.start);
+                        visited[edge.start.value - 1] = true;
+                    }
+                }
             }
         }
     }
