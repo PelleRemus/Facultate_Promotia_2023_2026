@@ -13,10 +13,13 @@ namespace Graph
         private void Form1_Load(object sender, EventArgs e)
         {
             Graph.Initialize(this);
-            Graph.ReadFromFile("../../Input.txt");
+            Graph.ReadFromFile("../../ComponenteTareConexe.txt");
             Graph.DisplayGraph();
-            Graph.DepthFirstSearch();
-            Graph.BreadthFirstSearch();
+            Graph.ColorMap();
+            Graph.DrawGraph();
+            Graph.ComponenteTareConexe();
+            //Graph.DepthFirstSearch();
+            //Graph.BreadthFirstSearch();
         }
     }
 }

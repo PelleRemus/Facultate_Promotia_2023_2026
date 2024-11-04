@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿using System.Drawing;
 
 namespace Graph
 {
@@ -26,6 +26,11 @@ namespace Graph
             // Echivalent, folosind LINQ
             //start = Graph.vertices.First(vertex => vertex.value == int.Parse(values[0]));
             //end = Graph.vertices.First(vertex => vertex.value == int.Parse(values[1]));
+        }
+
+        public void Draw()
+        {
+            Graph.graphics.DrawLine(new Pen(Color.Black, 3), start.location, end.location);
         }
 
         public override string ToString()
