@@ -18,14 +18,17 @@ export class PersonalDetailsComponent {
     "",
     "Oradea, Romania",
   )
+  formDetails: PersonalDetails = {} as PersonalDetails;
   isEdit: boolean = false;
 
   toggleEdit(): void {
     this.isEdit = !this.isEdit;
+    this.formDetails = { ...this.personalDetails };
   }
 
   onSubmit(form: any): void {
-    if(form.valid){
+    if (form.valid) {
+      this.personalDetails = { ...this.formDetails };
       this.toggleEdit();
     }
   }

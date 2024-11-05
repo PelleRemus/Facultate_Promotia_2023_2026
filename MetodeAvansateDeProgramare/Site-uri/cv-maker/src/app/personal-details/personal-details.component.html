@@ -6,21 +6,22 @@
                 <i class="bi bi-pencil-fill"></i>
             </button>
         </div>
-        <p class="text-secondary">{{personalDetails.jobTitle}}</p>
+        <p class="text-secondary" [class.mb-3]="!personalDetails.jobTitle">
+            {{personalDetails.jobTitle}}</p>
 
         <div class="d-flex justify-content-between">
             <div class="pt-2">
-                <div class="d-flex">
+                <div class="d-flex" [class.text-secondary]="!personalDetails.email">
                     <i class="bi bi-envelope-fill"></i>
-                    <p class="ms-2">{{personalDetails.email}}</p>
+                    <p class="ms-2">{{personalDetails.email || "Email"}}</p>
                 </div>
                 <div class="d-flex" [class.text-secondary]="!personalDetails.phoneNumber">
                     <i class="bi bi-phone-fill"></i>
                     <p class="ms-2">{{personalDetails.phoneNumber || "Phone"}}</p>
                 </div>
-                <div class="d-flex">
+                <div class="d-flex" [class.text-secondary]="!personalDetails.address">
                     <i class="bi bi-geo-alt-fill"></i>
-                    <p class="ms-2">{{personalDetails.address}}</p>
+                    <p class="ms-2">{{personalDetails.address || "Address"}}</p>
                 </div>
             </div>
             <div>
@@ -39,14 +40,14 @@
                     </label>
                     <input class="form-control" [class.is-invalid]="!name.valid" id="fullName"
                         #name="ngModel" placeholder="Enter Full Name"
-                        [(ngModel)]="personalDetails.name" name="name" required>
+                        [(ngModel)]="formDetails.name" name="name" required>
                     <div class="invalid-feedback">Name is required</div>
                 </div>
                 <div class="form-group mb-3">
                     <label class="d-inline-block bold" for="jobTitle">Job Title</label>
                     <small class="d-inline-block form-text text-muted ps-2">optional</small>
                     <input class="form-control" id="jobTitle" placeholder="Enter Job Title"
-                        [(ngModel)]="personalDetails.jobTitle" name="jobTitle">
+                        [(ngModel)]="formDetails.jobTitle" name="jobTitle">
                 </div>
             </div>
             <div class="ps-3">
@@ -60,22 +61,23 @@
                 <small class="d-inline-block form-text text-muted ps-2">recommended</small>
                 <input class="form-control" [class.is-invalid]="!email.valid" id="email"
                     #email="ngModel" placeholder="Enter Email"
-                    [(ngModel)]="personalDetails.email" name="email" email>
+                    [(ngModel)]="formDetails.email" name="email" email>
                 <div class="invalid-feedback">Invalid email</div>
             </div>
             <div class="form-group flex-1 ps-2">
                 <label class="d-inline-block bold" for="phone">Phone</label>
                 <small class="d-inline-block form-text text-muted ps-2">recommended</small>
                 <input class="form-control" id="phone" placeholder="Enter Phone"
-                    [(ngModel)]="personalDetails.phoneNumber" name="phone">
+                    [(ngModel)]="formDetails.phoneNumber" name="phone">
             </div>
         </div>
         <div class="form-group mb-3">
             <label class="d-inline-block bold" for="address">Address</label>
             <small class="d-inline-block form-text text-muted ps-2">recommended</small>
             <input class="form-control" id="address" placeholder="Enter Address"
-                [(ngModel)]="personalDetails.address" name="address">
+                [(ngModel)]="formDetails.address" name="address">
         </div>
         <button type="submit" class="btn btn-outline-primary">Save</button>
+        <button class="btn btn-outline-secondary" (mousedown)="toggleEdit()">Cancel</button>
     </form>
 </div>

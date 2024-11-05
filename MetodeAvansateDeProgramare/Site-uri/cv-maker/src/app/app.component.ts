@@ -10,5 +10,4 @@ import { LeftPanelComponent } from './left-panel/left-panel.component';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'cv-maker';
 }

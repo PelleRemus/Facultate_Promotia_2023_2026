@@ -1,5 +1,5 @@
-<div class="card py-2 mb-3">
-    <ul class="list-group list-group-flush">
+<div class="card mb-3" [class.py-2]="!isCreate" [class.p-3]="isCreate">
+    <ul class="list-group list-group-flush" *ngIf="!isCreate">
         <li class="list-group-item">
             <input class="w-100" value="Skills">
         </li>
@@ -9,10 +9,41 @@
             <p class="text-secondary">{{skill.skillLevel}}</p>
         </li>
         <li class="list-group-item d-flex justify-content-around">
-            <button class="btn btn-outline-dark d-flex">
+            <button class="btn btn-outline-dark d-flex" (click)="toggleCreate()">
                 <i class="bi bi-plus"></i>
                 <p class="ms-1">Skill</p>
             </button>
         </li>
     </ul>
+
+    <form *ngIf="isCreate" #form="ngForm" (ngSubmit)="onSubmit(form)">
+        <p class="h3">Create Skill</p>
+        <div class="form-group mb-3">
+            <label class="bold" for="skill">
+                <span class="text-danger">*</span> Skill
+            </label>
+            <input class="form-control" #skill="ngModel" id="skill"
+                placeholder="Enter Skill" [class.is-invalid]="skill.touched && !skill.valid"
+                [(ngModel)]="currentSkill.skill" name="skill" required>
+            <div class="invalid-feedback">Skill is required</div>
+        </div>
+        <div class="form-group mb-3">
+            <label class="bold" for="subskills">Subskills</label>
+            <textarea class="form-control" #subskills="ngModel" placeholder="Enter Subskills"
+                [(ngModel)]="currentSkill.subSkills" name="subskills" id="subskills" rows="3">
+            </textarea>
+        </div>
+        <div class="form-group mb-3">
+            <label class="bold" for="skillLevel">
+                <span class="text-danger">*</span> Skill level
+            </label>
+            <select class="form-select" #skillLevel="ngModel" required
+                [class.is-invalid]="skillLevel.touched && !currentSkill.skillLevel"
+                [(ngModel)]="currentSkill.skillLevel" name="skillLevel" id="skillLevel">
+                <option *ngFor="let level of skillLevels">{{ level }}</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-outline-primary">Create Skill</button>
+        <button class="btn btn-outline-secondary" (mousedown)="toggleCreate()">Cancel</button>
+    </form>
 </div>
