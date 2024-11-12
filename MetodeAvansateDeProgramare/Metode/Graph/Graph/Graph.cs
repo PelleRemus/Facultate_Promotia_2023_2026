@@ -1,19 +1,18 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Windows.Forms.VisualStyles;
 
 namespace Graph
 {
     public static class Graph
     {
-        public static int n;
+        public static int n, index;
         public static List<Vertex> vertices = new List<Vertex>();
         public static List<Edge> edges = new List<Edge>();
-        public static Color[] colors = new Color[] { Color.Red, Color.Yellow, Color.Blue, Color.Green };
+        public static int[,] adiacenta;
+        public static Color[] colors = new Color[] { Color.Red, Color.Orange, Color.Yellow, Color.YellowGreen, Color.Green, Color.Blue, Color.Indigo, Color.BlueViolet };
         public static bool[] visited;
 
         public static Form1 form;
@@ -38,9 +37,15 @@ namespace Graph
                     vertices.Add(new Vertex(i + 1, buffer));
                 }
 
+                adiacenta = new int[n, n];
                 while ((buffer = reader.ReadLine()) != null)
                 {
                     edges.Add(new Edge(buffer));
+                    string[] values = buffer.Split(' ');
+                    int i = int.Parse(values[0]) - 1;
+                    int j = int.Parse(values[1]) - 1;
+                    adiacenta[i, j] = 1;
+                    adiacenta[j, i] = 1;
                 }
             }
         }
@@ -232,6 +237,113 @@ namespace Graph
                     ComponenteTareConexeRecursiv(edge.start);
                 }
             }
+        }
+
+        // Eulerian
+        public static void EsteEulerian()
+        {
+            if (!EsteConectat())
+            {
+                form.listBox1.Items.Add("Graful nu este conectat");
+                form.listBox1.Items.Add("Graful nu este Eulerian");
+                return;
+            }
+            if (NoduriCuGradImpar() > 2)
+            {
+                form.listBox1.Items.Add("Graful nu este Eulerian");
+                return;
+            }
+            form.listBox1.Items.Add("Graful este Eulerian");
+        }
+
+        public static bool EsteConectat()
+        {
+            foreach (Vertex vertex in vertices)
+            {
+                if (vertex.grad > 0)
+                {
+                    DepthFirstSearchRecursive(vertex);
+                    break;
+                }
+            }
+
+            foreach (Vertex vertex in vertices)
+            {
+                if (vertex.grad > 0 && !visited[vertex.value - 1])
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public static int NoduriCuGradImpar()
+        {
+            int count = 0;
+            foreach (Vertex vertex in vertices)
+            {
+                if (vertex.grad % 2 != 0)
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
+
+        // Hamiltonian
+        public static List<List<Vertex>> drumuriHamiltoniene = new List<List<Vertex>>();
+        public static void EsteHamiltonian()
+        {
+            index = 0;
+            visited = new bool[n];
+            int[] solution = new int[n];
+            Backtracking(solution, 0);
+            for (int i = 0; i < n; i++)
+            {
+                drumuriHamiltoniene[index][i].color = colors[i];
+            }
+        }
+
+        public static void Backtracking(int[] solution, int k) // Permutari
+        {
+            if (k >= n)
+            {
+                if (VerificareDrum(solution))
+                {
+                    List<Vertex> drumHamiltonian = new List<Vertex>();
+                    for (int i = 0; i < n; i++)
+                    {
+                        drumHamiltonian.Add(vertices[solution[i]]);
+                    }
+                    drumuriHamiltoniene.Add(drumHamiltonian);
+                }
+                return;
+            }
+            for (int i = 0; i < n; i++)
+            {
+                if (!visited[i])
+                {
+                    visited[i] = true;
+                    solution[k] = i;
+                    Backtracking(solution, k + 1);
+                    visited[i] = false;
+                }
+            }
+        }
+
+        public static bool VerificareDrum(int[] solution)
+        {
+            for (int i = 0; i < n - 1; i++)
+            {
+                if (adiacenta[solution[i], solution[i + 1]] == 0)
+                {
+                    return false;
+                }
+            }
+            // Decomentati pentru ciclu hamiltonian
+            // if (adiacenta[solution[0], solution[n - 1]] == 0)
+            //     return false;
+            return true;
         }
     }
 }

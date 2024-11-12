@@ -1,9 +1,10 @@
-<div class="card mb-3" [class.py-2]="!isCreate" [class.p-3]="isCreate">
-    <ul class="list-group list-group-flush" *ngIf="!isCreate">
+<div class="card mb-3" [class.py-2]="!isCreate && !isEdit" [class.p-3]="isCreate || isEdit">
+    <ul class="list-group list-group-flush" *ngIf="!isCreate && !isEdit">
         <li class="list-group-item">
             <input class="w-100" value="Skills">
         </li>
-        <li class="list-group-item px-5 py-4" *ngFor="let skill of skills">
+        <li class="list-group-item pointer px-5 py-4" *ngFor="let skill of skills"
+            (click)="toggleEdit(skill)">
             <p class="h6">{{skill.skill}}</p>
             <p class="text-secondary">{{skill.subSkills}}</p>
             <p class="text-secondary">{{skill.skillLevel}}</p>
@@ -16,8 +17,8 @@
         </li>
     </ul>
 
-    <form *ngIf="isCreate" #form="ngForm" (ngSubmit)="onSubmit(form)">
-        <p class="h3">Create Skill</p>
+    <form *ngIf="isCreate || isEdit" #form="ngForm" (ngSubmit)="onSubmit(form)">
+        <p class="h3">{{ isCreate ? "Create Skill" : "Edit Skill" }}</p>
         <div class="form-group mb-3">
             <label class="bold" for="skill">
                 <span class="text-danger">*</span> Skill
@@ -40,10 +41,12 @@
             <select class="form-select" #skillLevel="ngModel" required
                 [class.is-invalid]="skillLevel.touched && !currentSkill.skillLevel"
                 [(ngModel)]="currentSkill.skillLevel" name="skillLevel" id="skillLevel">
-                <option *ngFor="let level of skillLevels">{{ level }}</option>
+                <option *ngFor="let level of skillLevels"
+                    [attr.selected]="level == CurrentSkillLevel">{{ level }}</option>
             </select>
         </div>
-        <button type="submit" class="btn btn-outline-primary">Create Skill</button>
-        <button class="btn btn-outline-secondary" (mousedown)="toggleCreate()">Cancel</button>
+        <button type="submit" class="btn btn-outline-primary">
+            {{ isCreate ? "Create Skill" : "Edit Skill" }}</button>
+        <button class="btn btn-outline-secondary" (mousedown)="closeForm()">Cancel</button>
     </form>
 </div>

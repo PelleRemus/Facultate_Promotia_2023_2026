@@ -13,13 +13,18 @@ import { SkillLevels } from '../models/skillLevels';
 })
 export class SkillsComponent {
   skills: Skill[] = [
-    new Skill("Backend", ".NET", SkillLevels.Proficient),
-    new Skill("Frontend", "Angular", SkillLevels.Competent),
-    new Skill("Tools", "Visual Studio Code", SkillLevels.Competent),
+    new Skill(1, "Backend", ".NET", SkillLevels.Proficient),
+    new Skill(2, "Frontend", "Angular", SkillLevels.Competent),
+    new Skill(3, "Tools", "Visual Studio Code", SkillLevels.Competent),
   ];
   skillLevels: string[] = []
   currentSkill: Skill = {} as Skill;
   isCreate = false;
+  isEdit = false;
+
+  get CurrentSkillLevel() {
+    return SkillLevels[this.currentSkill.skillLevel];
+  }
 
   constructor() {
     Object.keys(SkillLevels).forEach(key => {
@@ -34,10 +39,27 @@ export class SkillsComponent {
     this.currentSkill = {} as Skill;
   }
 
+  toggleEdit(skill: Skill) {
+    this.isEdit = !this.isEdit;
+    this.currentSkill = { ...skill };
+  }
+
+  closeForm() {
+    this.isCreate = false;
+    this.isEdit = false;
+  }
+
   onSubmit(form: any) {
     if (form.valid) {
-      this.skills.push(this.currentSkill);
-      this.toggleCreate();
+      if (this.isCreate) {
+        this.skills.push(this.currentSkill);
+        this.toggleCreate();
+      } else {
+        let skill = this.skills.filter(s => s.id == this.currentSkill.id)[0];
+        let index = this.skills.indexOf(skill);
+        this.skills[index] = this.currentSkill;
+        this.toggleEdit(this.currentSkill);
+      }
     }
   }
 }

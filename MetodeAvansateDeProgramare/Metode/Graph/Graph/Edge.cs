@@ -16,10 +16,12 @@ namespace Graph
                 if (vertex.value == int.Parse(values[0]))
                 {
                     start = vertex;
+                    start.grad++;
                 }
                 if (vertex.value == int.Parse(values[1]))
                 {
                     end = vertex;
+                    end.grad++;
                 }
             }
 

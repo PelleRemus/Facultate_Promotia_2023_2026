@@ -1,0 +1,8 @@
+.pointer {
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.pointer:hover {
+    background-color: rgb(225, 225, 225);
+}

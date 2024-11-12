@@ -5,12 +5,14 @@ namespace Graph
     public class Vertex
     {
         public int value;
+        public int grad;
         public Point location;
         public Color color = Color.White;
 
         public Vertex(int value, string line)
         {
             this.value = value;
+            this.grad = 0;
             string[] coordinates = line.Split(' ');
             location = new Point(int.Parse(coordinates[0]), int.Parse(coordinates[1]));
         }
