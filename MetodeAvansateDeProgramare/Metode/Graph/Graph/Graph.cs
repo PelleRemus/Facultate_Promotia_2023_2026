@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Graph
 {
-    public static class Graph
+    public static partial class Graph
     {
         public static int n, index;
         public static List<Vertex> vertices = new List<Vertex>();

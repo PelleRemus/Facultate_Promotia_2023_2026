@@ -17,11 +17,12 @@ namespace Graph
             Graph.ReadFromFile("../../Input.txt");
             Graph.DisplayGraph();
             Graph.ColorMap();
-            Graph.ComponenteTareConexe();
-            Graph.EsteEulerian();
-            Graph.EsteHamiltonian();
+            //Graph.ComponenteTareConexe();
+            //Graph.EsteEulerian();
+            //Graph.EsteHamiltonian();
             //Graph.DepthFirstSearch();
             //Graph.BreadthFirstSearch();
+            Graph.Kruskal();
 
             Graph.DrawGraph();
         }
