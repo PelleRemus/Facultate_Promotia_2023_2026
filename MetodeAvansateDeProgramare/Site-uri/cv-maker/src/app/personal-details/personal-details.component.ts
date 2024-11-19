@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PersonalDetails } from '../models/personal-details';
+import { PersonalDetailsService } from '../services/personal-details.service';
 
 @Component({
   selector: 'app-personal-details',
@@ -11,15 +12,15 @@ import { PersonalDetails } from '../models/personal-details';
   styleUrl: './personal-details.component.scss'
 })
 export class PersonalDetailsComponent {
-  personalDetails: PersonalDetails = new PersonalDetails(
-    "John Doe",
-    "Software Developer",
-    "john.doe@gmail.com",
-    "",
-    "Oradea, Romania",
-  )
+  personalDetails: PersonalDetails = {} as PersonalDetails;
   formDetails: PersonalDetails = {} as PersonalDetails;
   isEdit: boolean = false;
+
+  constructor(personalDetailsService: PersonalDetailsService) {
+    personalDetailsService.getPersonalDetails().subscribe(result => {
+      this.personalDetails = result;
+    })
+  }
 
   toggleEdit(): void {
     this.isEdit = !this.isEdit;

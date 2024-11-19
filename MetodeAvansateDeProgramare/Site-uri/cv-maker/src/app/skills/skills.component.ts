@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Skill } from '../models/skill';
 import { SkillLevels } from '../models/skillLevels';
+import { SkillsService } from '../services/skills.service';
 
 @Component({
   selector: 'app-skills',
@@ -12,12 +13,8 @@ import { SkillLevels } from '../models/skillLevels';
   styleUrl: './skills.component.scss'
 })
 export class SkillsComponent {
-  skills: Skill[] = [
-    new Skill(1, "Backend", ".NET", SkillLevels.Proficient),
-    new Skill(2, "Frontend", "Angular", SkillLevels.Competent),
-    new Skill(3, "Tools", "Visual Studio Code", SkillLevels.Competent),
-  ];
-  skillLevels: string[] = []
+  skills: Skill[] = [];
+  skillLevels: string[] = [];
   currentSkill: Skill = {} as Skill;
   isCreate = false;
   isEdit = false;
@@ -26,7 +23,11 @@ export class SkillsComponent {
     return SkillLevels[this.currentSkill.skillLevel];
   }
 
-  constructor() {
+  constructor(skillsService: SkillsService) {
+    skillsService.getSkillList().subscribe(result => {
+      this.skills = result;
+    })
+
     Object.keys(SkillLevels).forEach(key => {
       if(!+key && +key !== 0) {
         this.skillLevels.push(key);

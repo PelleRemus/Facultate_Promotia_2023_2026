@@ -2,6 +2,12 @@
     flex: 1;
 }
 
-.right-panel {
-    background-color: crimson;
+.background {
+    background-color: rgb(230,230,230);
+}
+
+.scroll {
+    overflow: auto;
+    min-height: 90vh;
+    max-height: 90vh;
 }
