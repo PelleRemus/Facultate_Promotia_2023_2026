@@ -7,6 +7,7 @@ import { ProfilComponent } from './profil/profil.component';
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: HomePageComponent },
+    { path: 'edit-cv', component: EditCvComponent },
     {
         path: 'profile',
         component: ProfilComponent,

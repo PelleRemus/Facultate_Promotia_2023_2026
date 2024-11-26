@@ -25,7 +25,7 @@
                 </div>
             </div>
             <div>
-                <img class="rounded-circle" src="https://placehold.co/100x100">
+                <img class="rounded-circle profile" [src]="personalDetails.imageUrl">
             </div>
         </div>
     </div>
@@ -51,7 +51,8 @@
                 </div>
             </div>
             <div class="ps-3">
-                <img class="rounded-circle" src="https://placehold.co/100x100">
+                <img #newImage class="rounded-circle profile pointer" [src]="formDetails.imageUrl">
+                <input class="d-block" type="file" (change)="imageChanged($event)">
             </div>
         </div>
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PersonalDetails } from '../models/personal-details';
@@ -12,6 +12,8 @@ import { PersonalDetailsService } from '../services/personal-details.service';
   styleUrl: './personal-details.component.scss'
 })
 export class PersonalDetailsComponent {
+  @ViewChild("newImage") newImage: any; 
+  file: File = {} as File;
   personalDetails: PersonalDetails = {} as PersonalDetails;
   formDetails: PersonalDetails = {} as PersonalDetails;
   isEdit: boolean = false;
@@ -20,6 +22,15 @@ export class PersonalDetailsComponent {
     personalDetailsService.getPersonalDetails().subscribe(result => {
       this.personalDetails = result;
     })
+  }
+
+  imageChanged($event: any) {
+    this.file = $event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(this.file);
+    reader.onload = () => {
+      this.formDetails.imageUrl = reader.result?.toString() ?? "";
+    };
   }
 
   toggleEdit(): void {
