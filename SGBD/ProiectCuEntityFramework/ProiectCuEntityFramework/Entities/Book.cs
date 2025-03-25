@@ -8,5 +8,13 @@
         public int AuthorId { get; set; }
         public Person Author { get; set; }
         public string Publisher { get; set; }
+
+        public override string ToString()
+        {
+            return Id + ". " + Title + ".\n"
+                + Author?.Name + "\n"
+                + Description
+                + ".\nPublisher: " + Publisher;
+        }
     }
 }

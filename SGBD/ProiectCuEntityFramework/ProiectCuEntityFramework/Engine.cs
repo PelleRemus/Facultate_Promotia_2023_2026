@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProiectCuEntityFramework.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,34 +24,47 @@ namespace ProiectCuEntityFramework
             "Liviu Rebreanu",
         };
 
-        public static LibraryContext dbContext = new LibraryContext("Server=localhost;Database=biblioteca;Trusted_Connection=True;TrustServerCertificate=true;");
+        public static LibraryContext dbContext;
 
         public static void AfisareCarti()
         {
+            var carti = dbContext.Books.ToList();
             for (int i = 0; i < carti.Count; i++)
             {
-                AfisareOCarte(i);
+                Console.WriteLine(carti[i]);
             }
         }
 
-        public static void AfisareOCarte(int index)
+        public static void AfisareOCarte(int id)
         {
-            Console.WriteLine(index + ". " + carti[index]);
+            var book = dbContext.Books.FirstOrDefault(b => b.Id == id);
+            if (book == null)
+            {
+                Console.WriteLine("Cartea nu exista!");
+                return;
+            }
+            Console.WriteLine(book);
         }
 
-        public static void EditareCarte(int index, string titluNou)
+        public static void EditareCarte(int id, Book newBook)
         {
-            Console.WriteLine($"Actualiarea cartii '{carti[index]}'...");
-            carti[index] = titluNou;
-            Console.WriteLine("Actualizare cu succes! noua carte:");
-            AfisareOCarte(index);
+            Console.WriteLine($"Actualiarea cartii cu id-ul {id}...");
+            Book dbBook = dbContext.Books.FirstOrDefault(b => b.Id == id);
+
+            dbBook.Title = newBook.Title;
+            dbBook.Description = newBook.Description;
+            dbBook.AuthorId = newBook.AuthorId;
+            dbBook.Publisher = newBook.Publisher;
+
+            dbContext.SaveChanges();
+            Console.WriteLine("Actualizare cu succes!");
         }
 
-        public static void AdaugareCarte(string titlu)
+        public static void AdaugareCarte(Book book)
         {
-            carti.Add(titlu);
-            Console.WriteLine("Adaugare cu succes! Noua carte:");
-            AfisareOCarte(carti.Count() - 1);
+            dbContext.Books.Add(book);
+            dbContext.SaveChanges();
+            Console.WriteLine("Adaugare cu succes!");
         }
 
         public static void StergereCarte(int index)
@@ -59,6 +73,13 @@ namespace ProiectCuEntityFramework
             AfisareOCarte(index);
             carti.RemoveAt(index);
             Console.WriteLine("Stergere cu succes!");
+        }
+
+        public static void AdaugarePersoana(Person person)
+        {
+            dbContext.People.Add(person);
+            dbContext.SaveChanges();
+            Console.WriteLine("Adaugare cu succes!");
         }
     }
 }

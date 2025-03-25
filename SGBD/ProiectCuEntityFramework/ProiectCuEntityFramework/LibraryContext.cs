@@ -15,7 +15,10 @@ namespace ProiectCuEntityFramework
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Person>();
+            modelBuilder.Entity<Person>()
+                .HasMany(p => p.Books)          // relatie one-to-many, o persoana are multe carti
+                .WithRequired(b => b.Author)    // relatie many-to-one, fiecare carte are un singur autor
+                .HasForeignKey(b => b.AuthorId);// proprietatea prin care se face relatia
         }
     }
 }
