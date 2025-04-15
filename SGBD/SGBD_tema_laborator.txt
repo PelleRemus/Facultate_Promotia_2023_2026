@@ -1,0 +1,102 @@
+Creati urmatoarele tabele:
+- un tabel cu sportivii legitimati:
+  id_sportiv, nume, premnume, club, data_nasterii, sex
+
+- un tabel cu competitii:
+  id_competitie, denumire, localitate, data_desfasurarii
+
+- un tabel cu participantii inscrisi:
+  id_participare, id_sportiv, id_competitie, disciplina
+
+- un tabel cu rezultate de la concursuri
+  id_rezultat, id_participare, Punctaj_total
+
+- un tabel cu rezultate decatlon
+  id_rezultate, 100m, p_100m , 200m, p_200m, 400m, p_400m, 1500m, p_1500m, 110mg, p_110mg, satitura_in inaltime, p_inaltime,
+saritura_cu_prajina,p_prajina, saritura_in lungime, p_lungime, aruncarea_greutatii, p_greutate, aruncarea discului, p_disc, 
+aruncarea sulitei, p_sulita
+
+- un tabel cu rezultate heptatlon
+  id_rezultate, 200m, p_200m, 800m, p_800m, 100mg, p_100mg, saritura in inaltime, p_ianltime, saritura in lungime, p_lungime,
+aruncarea greutatii, p_greutate, aruncarea sulitei, p_sulita
+
+
+/******************************************** FORMULE CALCUL PUNCTAJ ********************************************/
+Courses P=a*(b - T)**c [T exprime le Temps en secondes; par ex. 10.43 for 100 mètres]
+Sauts P=a*(M - b)**c [M exprime la Mesure en centimètres; par ex. 808 pour la longueur]
+Lancers P=a*(D - b)**c [D exprime la Distance en mètres; par ex. 16.69 pour le Poids]
+
+a, b et c sont des paramètres dont les valeurs sont énumérées ci-dessous. * est
+le symbole mathématique qui signifie "multiplié par", et ** est le symbole
+mathématique qui signifie "porté à la puissance de".
+Note: La valeur de P (points) doit être arrondie au nombre entier inférieur après
+les calculs (par ex. 123,999 becomes 123).
+PARAMETRES (constants pour chaque épreuve)
+HOMMES a b c
+100m (auto) 25.4347 18.00 1.81
+200m (auto) 5.8425 38.00 1.81
+400m (auto) 1.53775 82.00 1.81
+1500m 0.03768 480.00 1.85
+110mH (auto) 5.74352 28.50 1.92
+Saut en Hauteur 0.8465 75.00 1.42
+Saut à la Perche 0.2797 100.00 1.35
+Saut en Longueur 0.14354 220.00 1.40
+Lancer du Poids 51.39 1.50 1.05
+Lancer du Disque 12.91 4.00 1.10
+Lancer du Javelot 10.14 7.00 1.08
+
+FEMMES a b c
+200m (auto) 4.99087 42.50 1.81
+800m 0.11193 254.00 1.88
+100mH (auto) 9.23076 26.70 1.835
+Saut en Hauteur 1.84523 75.00 1.348
+Saut en Longueur 0.188807 210.00 1.41
+Lancer du Poids 56.0211 1.50 1.05
+Lancer du Javelot 15.9803 3.80 1.04
+
+
+/************************** CALCULATOR ONLINE PUNCTAJE PC ***************************************/
+https://www.sportcalculators.com/decathlon-calculator
+
+scrieti interogari pentru: 
+1) Afisati sportivii(+informatii) inscrisi la concursul si proba la care participa la concursul de la Cluj
+2) Afisati probele pentru o disciplina
+3) verificati daca datele de organizare a doua concursuri x si y se suprapun
+4) adaugati la tabelele rezultate coloane pentru pucatjul obtinut la fiecare proba.(ok)
+4.5) scrieti insert-uri pentru rezultate si puncatj dupa formulele descrise in fisierul cu informatii de la laboratorul 1
+5) Afisati castigatorii de la cluj de la heptatlon si decatlon si punctajul lor toal.
+6) Afisati medaliatii de la cluj de la hepta(respectiv deca)
+7) afisati concurentii care nu au termiat concursul.
+8) afisati performanta maxima obtinuta la cluj la fiecare proba(hepta si deca)
+9) afisati sportivul care are cele mai multe performante maximale la cluj (hepta si la deca)
+10) a) afisati sportivii care la cluj au fugit sub 10.2 secunde 100m
+10) b) afisati sportivele care la cluj au fugit sub 14.0 secunde 100mg
+11) lista sportivilor care au indepinit baremul de participare la camp. nationale. pct total > 6000 la deca si >5000 pentru hepta
+
+scrieti pentru baza de date probe combinate urmatoarele proceduri stocate pe server:
+1) pentru afisarea participantilor la concursul dintr-un oras(ca parametru de intrare 'Cluj')
+2) pentru afisarea participantilor care se califica pentru camp. national (punctaj mai mare de 5000pct la decathlon respectiv 4000 la heptatlon la una din etapele de calificare)
+3) pentru afisarea rezultatelor unui concurent la un concurs (parametri de intrare nume, prenume sportiv si Orasul unde se desfasoara concursul)
+4) pentru inscrierea unui concurent la un concurs(parametri nume prenume sportiv, loc concurs, disciplina)
+5) pentru inserarea rezultatelor unui concurent la un concurs(parametri de intrare nume,prenume concurent, loc concurs, proba, rezultat)
+6) pentru modificarea rezultatelor unui concurent la un concurs(parametri de intrare nume,prenume concurent, loc concurs, proba, rezultat)
+
+scrieti pentru baza de date pc(probe combinate) urmatoarele functii definite de utilizator:
+1) o functie care returneaza puctajul obtinut de un concurent la cluj
+2) o functie care returneaza rezultatele unui concurent la cocncursul de la cluj
+3) o functie care returneaza medaliatii de la concursul de la cluj si puncatjul obtinut parametrii(numele orasului unde e concursul, 'heptatlon' sau 'decatlon')
+
+pt baza de date probe combinate scrieti urmatorii triggersi:
+1)dupa inserarea rezultatelor unui concurent un triggers ce calculeaza punctajele si le insereaza in coloanele corespunzatoare
+2)dupa update-ul unei coloane cu rezultat un triggers ce calculeaza noul punctaj corespunzator inclusiv punctajul total
+3)un trigger care pastreaza un log despre concurentii care renunata la participarile unor concursuri
+
+creati indecsi pentru tabela:
+1) sportivi pe coloanele  nume si prenume
+2) concursuri pe coloana localitate si tara
+
+Raspunsurile vor fi grupate in fisiere:
+diagrama intr-un jpg;
+backup-ul in fisier sql(cu generate scripts)
+fiecare set de interogari intrun fisier sql de genul interogari.sql, proceduri stocate.sql, functii.sql....
+in fiecare fisier sa fie numarul exercitiului si textul intrebarii in comentariu la inceputul fiecarui raspuns / solutie...
